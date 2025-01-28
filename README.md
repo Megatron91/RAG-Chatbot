@@ -10,5 +10,5 @@ This is a **Retrieval-Augmented Generation (RAG) Chatbot** that retrieves releva
 
 ## 🚀 Setup & Usage
 ### **1. Install Dependencies**
-    ```bash
+```bash
     pip install -r requirements.txt
