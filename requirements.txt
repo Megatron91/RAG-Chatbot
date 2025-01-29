@@ -2,3 +2,5 @@ pandas
 flask 
 faiss-cpu 
 sentence-transformers 
+mysql-connector-python
+nltk==3.4.0

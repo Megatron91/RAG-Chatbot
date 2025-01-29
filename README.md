@@ -32,8 +32,9 @@ venv\Scripts\activate  # For Windows
 ```
 
 ### 1.3 Install Dependencies
-` pip install -r requirements.txt `
-
+``` 
+pip install -r requirements.txt `
+```
 ## 2. Database Setup (SQLite)
 
 This project uses **SQLite3** to store chat history in chat_history.db.
@@ -47,8 +48,9 @@ python data_preprocessing.py
 python embed_store.py
 ```
 ### 3.2 Start the Flask API
-
-`python app.py`
+```
+python app.py
+```
 
  The API will start at: http://127.0.0.1:8080/
 
@@ -56,7 +58,9 @@ python embed_store.py
 
  ### 4.1 Using curl
 
- `curl -X POST http://127.0.0.1:5000/chat -H "Content-Type: application/json" -d '{"user_query": "What is artificial intelligence?"} `
+ ```
+ curl -X POST http://127.0.0.1:5000/chat -H "Content-Type: application/json" -d '{"user_query": "What is artificial intelligence?"} 
+ ```
 
  ## 4.2 Using Python
 
@@ -107,15 +111,18 @@ curl -X GET http://127.0.0.1:8080/history
 The chatbot stores all user & system messages in chat_history.db.
 
 ### 6.1 View Stored Conversations through sqlilte3
-` sqlite3 chat_history.db "SELECT * FROM chat_history;" `
+``` 
+sqlite3 chat_history.db "SELECT * FROM chat_history;" 
+```
 
 ## 7. Project Structure
 
 ```
 ├── app.py                      # Flask API for chatbot interaction
 ├── chat_history.db              # SQLite database storing chat history
+├── ai_corpus.txt                # Wikipedia AI dataset (5000 words)
 ├── chunks.csv                   # Preprocessed text chunks
-├── data_preprocessing.py         # Prepares text & creates vector database
+├── data_preprocessing.py         # Reads corpus & creates text chunks
 ├── embed_store.py                # Generates embeddings & stores in FAISS
 ├── rag_chatbot.py                # Core chatbot logic (retrieval + generation)
 ├── vector_store.faiss            # FAISS vector database
