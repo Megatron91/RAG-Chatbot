@@ -17,21 +17,21 @@ This is a **Retrieval-Augmented Generation (RAG) Chatbot** that retrieves releva
 
 
 ## 🚀 Setup & Usage
-### 1. Installation & Setup
+#### 1. Installation & Setup
 
-### 1.1 Clone the Repository
+#### 1.1 Clone the Repository
 ```
 git clone https://github.com/Megatron91/RAG-Chatbot.git
 cd RAG-Chatbot
 ```
-### 1.2 Create & Activate Virtual Environment (Recommended)
+#### 1.2 Create & Activate Virtual Environment (Recommended)
 ```
 python -m venv venv
 source venv/bin/activate  # For Linux/macOS
 venv\Scripts\activate  # For Windows
 ```
 
-### 1.3 Install Dependencies
+#### 1.3 Install Dependencies
 ``` 
 pip install -r requirements.txt `
 ```
@@ -42,12 +42,12 @@ No additional database setup is required—SQLite works out-of-the-box.
 
 ## 3. Running the Chatbot
 
-### 3.1 Preprocess Data & Create Vector Database
+#### 3.1 Preprocess Data & Create Vector Database
 ```
 python data_preprocessing.py
 python embed_store.py
 ```
-### 3.2 Start the Flask API
+#### 3.2 Start the Flask API
 ```
 python app.py
 ```
@@ -56,13 +56,13 @@ python app.py
 
  ## 4. API Testing
 
- ### 4.1 Using curl
+ #### 4.1 Using curl
 
  ```
- curl -X POST http://127.0.0.1:5000/chat -H "Content-Type: application/json" -d '{"user_query": "What is artificial intelligence?"} 
+ curl -X POST http://127.0.0.1:8080/chat -H "Content-Type: application/json" -d '{"user_query": "What is artificial intelligence?"} 
  ```
 
- ## 4.2 Using Python
+ #### 4.2 Using Python
 
 ```
 import requests
@@ -75,7 +75,7 @@ print(response.json())  # Expected Output: {"answer": "AI is ..."}
 
 ```
 
-### 4.3 Using Postman
+#### 4.3 Using Postman
 1.	Open Postman and create a new POST request.
 2.	Enter the URL: http://127.0.0.1:8080/chat
 3.	Set Headers: `Content-Type: application/json`
@@ -91,18 +91,18 @@ print(response.json())  # Expected Output: {"answer": "AI is ..."}
 
 ## 5. Running with Docker
 
-### 5.1 Run Pre-Built Docker Image from Docker Hub
+#### 5.1 Run Pre-Built Docker Image from Docker Hub
 ```
 docker pull 812693/rag-chatbot
 docker run -p 8080:8080 812693/rag-chatbot
 ```
 
-### 5.2 Test API Inside the Container
+#### 5.2 Test API Inside the Container
  ```
  curl -X POST http://127.0.0.1:8080/chat -H "Content-Type: application/json" -d '{"query": "What is artificial intelligence?"}'
  ```
 
-#### Check Chat-History
+##### Check Chat-History
 ```
 curl -X GET http://127.0.0.1:8080/history
 ```
@@ -110,7 +110,7 @@ curl -X GET http://127.0.0.1:8080/history
 ## 6. Chat History Storage
 The chatbot stores all user & system messages in chat_history.db.
 
-### 6.1 View Stored Conversations through sqlilte3
+#### 6.1 View Stored Conversations through sqlilte3
 ``` 
 sqlite3 chat_history.db "SELECT * FROM chat_history;" 
 ```
