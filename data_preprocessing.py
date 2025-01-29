@@ -1,40 +1,47 @@
-import os
 import pandas as pd
-from sentence_transformers import SentenceTransformer
-import faiss
-import numpy as np
+import re
+from nltk.tokenize import sent_tokenize
 
-# Load a sample dataset or scrape/copy some text documents
-documents = [
-    "Artificial Intelligence is transforming industries.",
-    "Natural Language Processing allows machines to understand human language.",
-    "Machine Learning models are trained using data.",
-    "Deep Learning improves model accuracy in NLP and vision tasks.",
-]
+# Define corpus file path
+CORPUS_FILE = "ai_corpus.txt"
+OUTPUT_FILE = "chunks.csv"
 
-# Define the embedding model
-model = SentenceTransformer("all-MiniLM-L6-v2")
+def clean_text(text):
+    """Remove extra spaces and special characters from text."""
+    text = re.sub(r'\s+', ' ', text)  # Remove extra spaces
+    text = re.sub(r'[^a-zA-Z0-9.,!? ]', '', text)  # Remove special characters
+    return text.strip()
 
-# Split documents into smaller chunks (if necessary)
-chunk_size = 200  # Approximate token size
-chunks = []
-for doc in documents:
-    words = doc.split()
-    for i in range(0, len(words), chunk_size):
-        chunks.append(" ".join(words[i:i + chunk_size]))
+def chunk_text(text, chunk_size=200):
+    """Split long text into smaller chunks (~200-300 words each)."""
+    sentences = sent_tokenize(text)
+    chunks, current_chunk = [], []
+    current_length = 0
 
-# Generate embeddings
-embeddings = model.encode(chunks)
+    for sentence in sentences:
+        current_length += len(sentence.split())
+        current_chunk.append(sentence)
 
-# Store embeddings in Faiss
-dimension = embeddings.shape[1]
-index = faiss.IndexFlatL2(dimension)  # L2 norm distance
-index.add(np.array(embeddings, dtype=np.float32))
+        if current_length >= chunk_size:
+            chunks.append(" ".join(current_chunk))
+            current_chunk = []
+            current_length = 0
 
-# Save the Faiss index
-faiss.write_index(index, "vector_store.faiss")
+    if current_chunk:  # Add remaining text as a chunk
+        chunks.append(" ".join(current_chunk))
 
-# Save text chunks
-pd.DataFrame({"chunk": chunks}).to_csv("chunks.csv", index=False)
+    return chunks
 
-print("Data preprocessing complete. Embeddings stored.")
+# Read AI corpus from the text file
+with open(CORPUS_FILE, "r", encoding="utf-8") as file:
+    corpus_text = file.read()
+
+# Clean and chunk the text
+cleaned_text = clean_text(corpus_text)
+chunks = chunk_text(cleaned_text)
+
+# Save processed chunks to a CSV file
+df = pd.DataFrame({"chunk_text": chunks})
+df.to_csv(OUTPUT_FILE, index=False)
+
+print(f"✅ Data Preprocessing Complete! {len(chunks)} text chunks saved to {OUTPUT_FILE}.")

@@ -8,7 +8,7 @@ model = SentenceTransformer("all-MiniLM-L6-v2")
 
 # Load text chunks
 chunks_df = pd.read_csv("chunks.csv")
-chunks = chunks_df["chunk"].tolist()
+chunks = chunks_df["chunk_text"].tolist()
 
 # Generate embeddings
 embeddings = model.encode(chunks)
