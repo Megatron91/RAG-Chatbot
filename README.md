@@ -94,12 +94,12 @@ print(response.json())  # Expected Output: {"answer": "AI is ..."}
 ### 5.1 Run Pre-Built Docker Image from Docker Hub
 ```
 docker pull 812693/rag-chatbot
-docker run -p 5000:5000 812693/rag-chatbot
+docker run -p 8080:8080 812693/rag-chatbot
 ```
 
 ### 5.2 Test API Inside the Container
  ```
- curl -X POST http://127.0.0.1:8080/chat -H "Content-Type: application/json" -d '{"user_query": "What is artificial intelligence?"}'
+ curl -X POST http://127.0.0.1:8080/chat -H "Content-Type: application/json" -d '{"query": "What is artificial intelligence?"}'
  ```
 
 #### Check Chat-History
