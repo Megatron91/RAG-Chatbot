@@ -4,4 +4,3 @@ __pycache__/
 .vercel
 .DS_Store
 .dockerignore
-.glcoudignore
