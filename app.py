@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 # Database helper function
 def get_db_connection():
-    """Create a new database connection per request."""
+    #Create a new database connection per request."""
     conn = sqlite3.connect("chat_history.db")
     conn.row_factory = sqlite3.Row  # Allows accessing columns by name
     return conn
@@ -37,7 +37,7 @@ def home():
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    """Handle chat messages by retrieving relevant responses."""
+    #Handle chat messages by retrieving relevant responses."""
     try:
         data = request.get_json()
         if not data or "query" not in data or not data["query"].strip():
@@ -63,7 +63,7 @@ def chat():
 
 @app.route("/history", methods=["GET"])
 def get_history():
-    """Retrieve chat history from the database."""
+    #Retrieve chat history from the database.
     try:
         with get_db_connection() as conn:
             cursor = conn.cursor()
@@ -76,4 +76,4 @@ def get_history():
         return jsonify({"error": str(e)}), 500  # Handle errors gracefully
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080, debug=True)  # Disable debug in production
+    app.run(host="0.0.0.0", port=9000, debug=True) # Run the Flask app
