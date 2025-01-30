@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify
 import sqlite3
 import datetime
@@ -76,4 +77,5 @@ def get_history():
         return jsonify({"error": str(e)}), 500  # Handle errors gracefully
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=7080, debug=True) # Run the Flask app
+    port=int(os.environ.get("PORT", 7080))
+    app.run(host="0.0.0.0", port=port, debug=True) # Run the Flask app
